@@ -31,5 +31,17 @@ RUN jupyter labextension install @ijmbarr/jupyterlab_spellchecker
 
 RUN fix-permissions /home/$NB_USER
 
+
+# Grid specific stuff
+
+RUN apt-get update && apt install -y openssh-server supervisor netcat
+RUN rm -Rvf /etc/ssh/ssh_host_*
+
+COPY health.sh /bin/.
+COPY root_start.sh /bin/.
+COPY supervisord.conf /etc/
+CMD ["/bin/root_start.sh"]
+
+
 # Switch back to jovyan to avoid accidental container runs as root
 USER $NB_UID
