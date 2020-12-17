@@ -362,10 +362,22 @@ COPY jupyter_notebook_config.json /etc/jupyter/
 ############################ Grid specifics ################################
 ############################################################################
 
+USER root 
+
 RUN apt install -y openssh-server supervisor netcat
 RUN rm -Rvf /etc/ssh/ssh_host_*
 
 COPY health.sh /bin/.
 COPY root_start.sh /bin/.
 COPY supervisord.conf /etc/
+
+COPY vendor/*.whl vendor/
+RUN pip install vendor/*.whl
+
+EXPOSE 8888
+EXPOSE 22
+
+# Switch back to jovyan to avoid accidental container runs as root
+USER $NB_UID
+
 CMD ["/bin/root_start.sh"]
