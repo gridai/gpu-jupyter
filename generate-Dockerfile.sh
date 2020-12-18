@@ -125,11 +125,3 @@ echo "COPY jupyter_notebook_config.json /etc/jupyter/"  >> $DOCKERFILE
 
 echo "GPU Dockerfile was generated successfully in file ${DOCKERFILE}."
 echo "Run 'bash start-local.sh -p [PORT]' to start the GPU-based Juyterlab instance."
-
-
-echo "
-############################################################################
-############################ Grid specifics ################################
-############################################################################
-" >> $DOCKERFILE
-cat src/Dockerfile.footer >> $DOCKERFILE

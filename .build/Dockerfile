@@ -377,7 +377,4 @@ RUN pip install vendor/*.whl
 EXPOSE 8888
 EXPOSE 22
 
-# Switch back to jovyan to avoid accidental container runs as root
-USER $NB_UID
-
 CMD ["/bin/root_start.sh"]
